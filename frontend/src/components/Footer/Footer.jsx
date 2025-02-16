@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./footer.css";
+import "./Footer.css";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
 import mylogo from '../../assets/logo.png';
 import MobileFooter from "./MobileFooter";
