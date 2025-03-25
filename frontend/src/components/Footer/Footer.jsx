@@ -1,161 +1,139 @@
-import React, { useEffect, useState } from "react";
-import "./Footer.css";
-import { FaEnvelope, FaPhone } from "react-icons/fa";
-import mylogo from '../../assets/logo.png';
-import MobileFooter from "./MobileFooter";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Linkedin, Twitter, Github, Mail, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
-  const [categories, setCategories] = useState([
-    { id: 1, name: "Job Sphere AI" },
-  ]);
+  const links = [
+    {
+      title: "Product",
+      items: ["Features", "Pricing", "API", "Integrations"]
+    },
+    {
+      title: "Company",
+      items: ["About", "Blog", "Careers", "Press"]
+    },
+    {
+      title: "Resources",
+      items: ["Help Center", "Community", "Webinars", "Status"]
+    },
+    {
+      title: "Legal",
+      items: ["Privacy", "Terms", "Cookie Policy", "GDPR"]
+    }
+  ];
+
+  const socialLinks = [
+    { icon: <Linkedin />, url: "#" },
+    { icon: <Twitter />, url: "#" },
+    { icon: <Github />, url: "#" },
+    { icon: <Mail />, url: "#" }
+  ];
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
-    <footer className="bg-gradient-to-r from-[#00796b] to-[#8ca87c] text-white">
-      <div className="relative">
-        <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Column 1 */}
-            <div>
-              <h3 className="text-lg font-semibold text-center sm:text-left">
-                Subscribe to Our Newsletter
-              </h3>
-              <p className="mt-4 text-center sm:text-left">
-                Don’t miss any updates of our new products and exclusive offers!
-              </p>
-              <form className="mt-4 flex flex-col items-center sm:items-start space-y-3">
-                <input
-                  type="email"
-                  name="EMAIL"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Email"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
+    <footer className="relative bg-gradient-to-b from-gray-900 to-gray-950 border-t border-white/10">
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-10"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${5 + Math.random() * 10}s infinite`
+            }}
+          />
+        ))}
+      </div>
 
-            {/* Column 2 */}
-            <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold">Categories</h3>
-              <ul className="mt-4 space-y-1">
-                {categories.slice(0, 15).map((category) => (
-                  <li key={category.id}>
-                    <a href="#" className="text-white text-sm hover:text-blue-500">
-                      {category.name}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          {/* Brand Info */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center mb-6">
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Job Sphere AI
+              </span>
+            </div>
+            <p className="text-gray-400 mb-6">
+              Revolutionizing career growth with AI-powered tools and community insights.
+            </p>
+            <div className="flex space-x-4">
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.url}
+                  whileHover={{ y: -3 }}
+                  className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors"
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer Links */}
+          {links.map((link, index) => (
+            <div key={index}>
+              <h3 className="text-white font-medium mb-4">{link.title}</h3>
+              <ul className="space-y-3">
+                {link.items.map((item, itemIndex) => (
+                  <li key={itemIndex}>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-blue-400 transition-colors"
+                    >
+                      {item}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
-
-            {/* Column 3 */}
-            <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold">Useful Links</h3>
-              <ul className="mt-4 space-y-1">
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Terms & Conditions
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Reporting
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Support Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 4 */}
-            <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold">Our Services</h3>
-              <ul className="mt-4 space-y-1">
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Resume Analysis
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Public Forums
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white text-sm hover:text-blue-500">
-                    Feedback
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 5 */}
-            <div className="text-center sm:text-left">
-              <div className="logo-container">
-                <h1 className="logo-text">
-                  Job <span className="text-gradient">Sphere</span> AI
-                </h1>
-              </div>
-              <p className="text-sm mb-4">
-                Welcome to Job Sphere AI, your ultimate destination for Resume Analysis, Public Forums, and Feedback feature.
-                Discover our accurate predictions and transform your JEE journey into a successful experience.
-              </p>
-              <div className="flex items-center justify-center sm:justify-start space-x-2 mb-4">
-                <span className="text-sm"> jobsphere.in@gmail.com</span>
-              </div>
-              <div className="flex items-center justify-center sm:justify-start space-x-2">
-                <FaPhone className="text-xl" />
-                <span className="text-sm">+918360103913</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Footer Bottom */}
-        <footer className="bg-gradient-to-r from-[#00796b] to-[#8ca87c] text-white">
-          <div className="container mx-auto py-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-            <p className="text-white text-center text-sm">
-              © Job Sphere AI Inc. 2025 All rights reserved.
-            </p>
-            <p className="text-white text-center text-sm">
-              Made with <span className="text-red-500">❤</span> By{" "}
-              <a
-                href="http://cakecounter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white"
-              >
-                Job Sphere AI Team
-              </a>
-            </p>
+        {/* Divider */}
+        <div className="border-t border-white/10 my-8" />
+
+        {/* Bottom Footer */}
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} Job Sphere AI. All rights reserved.
+          </p>
+
+          <div className="flex items-center space-x-6 mt-4 md:mt-0">
+            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+              Terms of Service
+            </a>
+            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+              Cookies
+            </a>
           </div>
-        </footer>
+        </div>
       </div>
+
+      {/* Back to Top Button */}
+      <motion.button
+        onClick={scrollToTop}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg z-50"
+        aria-label="Back to top"
+      >
+        <ArrowUp className="w-5 h-5 text-white" />
+      </motion.button>
     </footer>
   );
 };
 
 export default Footer;
-
